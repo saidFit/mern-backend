@@ -17,7 +17,7 @@ dotenv.config()
 app.use(express.json())
 app.use(
     cors({
-      origin: ["http://localhost:3000", "https://mern-task-app.onrender.com"],
+      origin: ["http://localhost:3000", "https://mern-task-app-api-yn4k.onrender.com"],
     })
   );
 // ----------Middlewere from Schema---------//
