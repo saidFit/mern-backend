@@ -15,11 +15,13 @@ const path =require('path')
 dotenv.config()
 
 app.use(express.json())
+
 app.use(cors({
-  origin: "https://mern-task-app-5z6s.onrender.com"
+  origin: ["http://localhost:3000","https://mern-task-app-5z6s.onrender.com"]
 }
 ))
 app.options('*', cors())
+
 // ----------Middlewere from Schema---------//
 
 app.use('/user',Routeruser)
