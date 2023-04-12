@@ -5,7 +5,7 @@ const Comment_arr  = require('../models/Comment')
 const getAllPosts = async(req,res) =>{
 
      try {
-        const Posts = await Posts_arr.find({})
+        const Posts = await Posts_arr.find({}).sort({_id:-1});
         res.status(200).json(Posts)
      } catch (error) {
          res.status(400).json({error:error.message})
