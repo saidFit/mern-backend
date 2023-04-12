@@ -31,10 +31,8 @@ const multer = require('multer');
 
 
 const imageStorage = multer.diskStorage({
-        destination:function (req,file,cb) {
-        cb(null,"uploads")
-    },
-      filename: (req, file, cb) => {
+        destination: "uploads",
+        filename: (req, file, cb) => {
           cb(null, file.fieldname + '_' + Date.now() 
              + path.extname(file.originalname))
             // file.fieldname is name of the field (image)
@@ -45,10 +43,10 @@ const imageStorage = multer.diskStorage({
 const upload = multer({
     storage: imageStorage,
     limits: {
-      fileSize: 1000000 // 1000000 Bytes = 1 MB
+      fileSize: 2000000 // 1000000 Bytes = 1 MB
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(jpg|jpeg|png|svg)$/)) { 
+      if (!file.originalname.match(/\.(jpeg|png)$/)) { 
          // upload only png and jpg format
          return cb(new Error('Please upload a Image'))
        }
