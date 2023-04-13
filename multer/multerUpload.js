@@ -17,35 +17,37 @@ const multer = require('multer');
 //         cb(null,file.originalname)
 //     }
 // })
-// // const filefilter = (req, file, cb) => {
-// //     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
-// //         || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jfif'){
-// //             cb(null, true);
-// //         }else {
-// //             cb(null, false);
-// //         }
-// // }
+// // // const filefilter = (req, file, cb) => {
+// // //     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+// // //         || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jfif'){
+// // //             cb(null, true);
+// // //         }else {
+// // //             cb(null, false);
+// // //         }
+// // // }
 
 // const upload = multer({storage: storage});
 
 
 
 const imageStorage = multer.diskStorage({
-      destination:function (req,file,cb) {
-        cb(null,"uploads")
-    },
-    filename:function (req,file,cb) {
-        cb(null,file.originalname)
+    // Destination to store image     
+    destination: 'uploads', 
+      filename: (req, file, cb) => {
+          cb(null, file.fieldname + '_' + Date.now() 
+             + path.extname(file.originalname))
+            // file.fieldname is name of the field (image)
+            // path.extname get the uploaded file extension
     }
 });
 
 const upload = multer({
     storage: imageStorage,
     limits: {
-      fileSize: 2000000 // 1000000 Bytes = 1 MB
+      fileSize: 1000000 // 1000000 Bytes = 1 MB
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(jpeg|png)$/)) { 
+      if (!file.originalname.match(/\.(png|jpg)$/)) { 
          // upload only png and jpg format
          return cb(new Error('Please upload a Image'))
        }
