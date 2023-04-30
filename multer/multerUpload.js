@@ -67,16 +67,27 @@ const multer = require('multer');
 // var upload = multer({ storage: storage })
 
 // Set up multer storage and file filter
-const upload = multer({
-  limits: {
-      fileSize: 1000000
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
   },
-  fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-          return cb(new Error('Please upload a valid image file'))
-      }
-      cb(undefined, true)
+  filename: function (req, file, cb) {
+    const extension = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + Date.now() + extension);
   }
-})
+});
+
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+      const extension = path.extname(file.originalname);
+      if (extension !== '.jfif') {
+        return cb(new Error('Only .jfif files are allowed'));
+      }
+      cb(null, true)
+    }
+  });
 
 module.exports = {upload};
