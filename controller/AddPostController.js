@@ -29,9 +29,7 @@ const InsertPost = async(req,res) =>{
                 NowPost.save()   
           return res.status(200).json(NowPost)   
         }
-        const buffer = await sharp(req.file.buffer).jpeg().toBuffer();
-        const fileName = req.file.filename.split('.')[0] + '.jpeg';
-        await sharp(buffer).toFile(`./uploads/${fileName}`);
+        await sharp(req.file.buffer).resize({ width: 250, height: 250 }).jpeg().toFile(__dirname + `/uploads/${req.file.originalname}`)
         const NowPost = await Posts_arr.create({title,comment,IsImagePath:true,image:req.file.path,name_user:name_user,image_user:image_user,location_user:location_user,IsFile:IsFile,req_id_user:req_id_user})   
         res.status(200).json(NowPost)  
     

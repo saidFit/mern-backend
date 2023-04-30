@@ -67,21 +67,16 @@ const multer = require('multer');
 // var upload = multer({ storage: storage })
 
 // Set up multer storage and file filter
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
+const upload = multer({
+  limits: {
+      fileSize: 1000000
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
+  fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+          return cb(new Error('Please upload a valid image file'))
+      }
+      cb(undefined, true)
   }
-});
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new Error('Not an image! Please upload an image.'), false);
-  }
-};
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+})
 
 module.exports = {upload};
