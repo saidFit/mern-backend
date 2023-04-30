@@ -83,8 +83,8 @@ const upload = multer({
     storage: storage,
     fileFilter: function (req, file, cb) {
       const extension = path.extname(file.originalname);
-      if (extension !== '.jfif') {
-        return cb(new Error('Only .jfif files are allowed'));
+      if (extension !== '.jfif' && extension !== '.jpeg' && extension !== '.jpg' && extension !== '.png') {
+        cb(new Error('File type not allowed'));
       }
       cb(null, true)
     }
