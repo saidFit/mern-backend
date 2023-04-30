@@ -9,14 +9,14 @@ const multer = require('multer');
 //     }
 // });
 
-// const storage = multer.diskStorage({
-//     destination:function (req,file,cb) {
-//         cb(null,"uploads")
-//     },
-//     filename:function (req,file,cb) {
-//         cb(null,file.originalname)
-//     }
-// })
+const storage = multer.diskStorage({
+    destination:function (req,file,cb) {
+        cb(null,"uploads")
+    },
+    filename:function (req,file,cb) {
+        cb(null,file.originalname)
+    }
+})
 // // // const filefilter = (req, file, cb) => {
 // // //     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
 // // //         || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jfif'){
@@ -26,7 +26,7 @@ const multer = require('multer');
 // // //         }
 // // // }
 
-// const upload = multer({storage: storage});
+const upload = multer({storage: storage});
 
 
 
@@ -67,21 +67,5 @@ const multer = require('multer');
 // var upload = multer({ storage: storage })
 
 
-var storage = multer.diskStorage({
-  destination: './public/uploads',
-  filename: function (req, file, cb) {
-      switch (file.mimetype) {
-          case 'image/jpeg':
-              ext = '.jpeg';
-              break;
-          case 'image/png':
-              ext = '.png';
-              break;
-      }
-      cb(null, file.originalname + ext);
-  }
-});
-
-var upload = multer({storage: storage});
 
 module.exports = {upload};
