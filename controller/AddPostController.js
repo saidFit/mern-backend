@@ -1,6 +1,6 @@
 const Posts_arr = require('../models/AddPostModel')
 const Comment_arr  = require('../models/Comment')
-
+const sharp = require('sharp');
 
 const getAllPosts = async(req,res) =>{
 
@@ -29,6 +29,7 @@ const InsertPost = async(req,res) =>{
                 NowPost.save()   
           return res.status(200).json(NowPost)   
         }
+        await sharp(req.file.buffer).jpeg().toBuffer();
         const NowPost = await Posts_arr.create({title,comment,IsImagePath:true,image:req.file.path,name_user:name_user,image_user:image_user,location_user:location_user,IsFile:IsFile,req_id_user:req_id_user})   
         res.status(200).json(NowPost)  
     

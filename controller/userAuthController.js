@@ -23,8 +23,6 @@ const Comments = require('../models/Comment')
 const processToken = async(req,res) =>{
     const {email} = req.body
     console.log(email)
-
-
     try {
         const userProcess = await Users.findOne({email}).then((user) =>{
             return {
