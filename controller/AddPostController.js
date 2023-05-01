@@ -29,8 +29,10 @@ const InsertPost = async(req,res) =>{
                 NowPost.save()   
           return res.status(200).json(NowPost)   
         }
-    
-        const NowPost = await Posts_arr.create({title,comment,IsImagePath:true,image:req.file.path,name_user:name_user,image_user:image_user,location_user:location_user,IsFile:IsFile,req_id_user:req_id_user})   
+        
+        const NowPost = await Posts_arr.create({title,comment,IsImagePath:true,image:req.file.path,name_user:name_user,image_user:image_user,location_user:location_user,IsFile:IsFile,req_id_user:req_id_user})
+        NowPost.save();   
+        console.log(NowPost)
         res.status(200).json(NowPost)  
     
     } catch (error) {
