@@ -14,6 +14,7 @@ const getAllPosts = async(req,res) =>{
 
 const InsertPost = async(req,res) =>{
        console.log(req.body)
+       const {imagePath} = req.body;
        const {title,comment,req_id_user,IsImagePath,name_user,image_user,location_user,IsFile} =  req.body
 
        if(!title && !req.file){
@@ -30,7 +31,7 @@ const InsertPost = async(req,res) =>{
           return res.status(200).json(NowPost)   
         }
         
-        const NowPost = await Posts_arr.create({title,comment,IsImagePath:true,image:req.file.path,name_user:name_user,image_user:image_user,location_user:location_user,IsFile:IsFile,req_id_user:req_id_user})
+        const NowPost = await Posts_arr.create({title,comment,IsImagePath:true,image:imagePath,name_user:name_user,image_user:image_user,location_user:location_user,IsFile:IsFile,req_id_user:req_id_user})
         NowPost.save();   
         console.log(NowPost)
         res.status(200).json(NowPost)  
