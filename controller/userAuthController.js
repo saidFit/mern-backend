@@ -70,7 +70,7 @@ const processToken = async(req,res) =>{
 } 
 
 const registeruser = async(req,res) =>{
-     const {firstName,lastName,email,password,location,occupation} = req.body
+     const {firstName,lastName,email,password,location,image,occupation} = req.body
      const arr_errors = []
      if(!firstName){
         arr_errors.push('firstName')
@@ -97,7 +97,7 @@ const registeruser = async(req,res) =>{
     try {
 
        
-        const now_user = await Users.register(firstName,lastName,email,password,req.file,location,occupation)
+        const now_user = await Users.register(firstName,lastName,email,password,image,location,occupation)
         const filter_user ={
            _id: now_user._id,
            firstName: now_user.firstName,
@@ -142,7 +142,6 @@ const login    = async(req,res) =>{
            image: user_exist.image,
            location: user_exist.location,
            occupation: user_exist.occupation,
-           IsFile:user_exist.IsFile,
            Image_Coverture:user_exist.Image_Coverture,
 
          }

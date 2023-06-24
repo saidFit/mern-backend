@@ -5,10 +5,10 @@ const router  = express.Router()
 const {upload} = require('../multer/multerUpload')
 
 
-router.post('/register',upload.single('image'),registeruser)
-router.post('/login',upload.single('image'),login)
-router.get('/getById/:id',upload.single('image'),getUserById)
-router.put('/putImageProfile/:id',upload.single('image'),updateImageUser)
-router.put('/updateImageCoverture/:id',upload.single('image'),updateImageCoverture)
+router.post('/register',registeruser)
+router.post('/login',login)
+router.get('/getById/:id',getUserById)
+router.put('/putImageProfile/:id',updateImageUser)
+router.put('/updateImageCoverture/:id',updateImageCoverture)
 router.post('/processToken',processToken)
 module.exports = router;
